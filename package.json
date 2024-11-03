@@ -4,8 +4,8 @@
   "main": "eslint.config.js",
   "type": "module",
   "scripts": {
-    "start":"src/index.js",
-    "dev":"nodemon src/index.js"
+    "start": "src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "http-errors": "^2.0.0",
     "mongoose": "^8.7.3",
     "pino-http": "^10.3.0",
     "yarn": "^1.22.22"
