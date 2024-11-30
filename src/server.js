@@ -14,6 +14,7 @@ const setupServer = () => {
   app.use(cors());
   app.use(express.json());
   app.use(cookieParser())
+  app.use(express.static("uploads"))
   // app.use(logger);
   app.use('/contacts', contactsRouters);
   app.use('/auth', authRouter);

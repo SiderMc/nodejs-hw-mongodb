@@ -1,4 +1,6 @@
 import createError from 'http-errors';
+import path from 'node:path';
+import env from '../utils/env.js';
 import {
   addContacts,
   deleteContacts,
@@ -10,6 +12,8 @@ import parsePaginationParams from '../utils/parsePaginationParams.js';
 import parseSortParams from '../utils/parseSortParams.js';
 import { sortOrderByList } from '../db/models/contacts.js';
 import parseFilterParams from '../utils/parseFilterParams.js';
+import saveFileToUploadDir from '../utils/saveFileToUploadDir.js';
+import saveFileToCloudinary from '../utils/saveFileToCloudinary.js';
 
 export const getAllContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -42,9 +46,18 @@ export const getContactsByIdController = async (req, res) => {
     data,
   });
 };
-
 export const addContactsController = async (req, res) => {
-  const data = await addContacts({ ...req.body, userId: req.user._id });
+  const payload = req.body;
+  const enableCloudinary = env('ENABLE_CLOUDINARY');
+  if (req.file) {
+    if (enableCloudinary === 'true') {
+      payload.photo = await saveFileToCloudinary(req.file, 'photo');
+    } else {
+      await saveFileToUploadDir(req.file);
+      payload.photo = path.join(req.file.filename);
+    }
+  }
+  const data = await addContacts({ ...payload, userId: req.user._id });
   res.json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -54,9 +67,19 @@ export const addContactsController = async (req, res) => {
 
 export const updateContactsController = async (req, res) => {
   const { _id } = req.params;
+  const payload = req.body;
+  const enableCloudinary = env('ENABLE_CLOUDINARY');
+  if (req.file) {
+    if (enableCloudinary === 'true') {
+      payload.photo = await saveFileToCloudinary(req.file, 'photo');
+    } else {
+      await saveFileToUploadDir(req.file);
+      payload.photo = path.join(req.file.filename);
+    }
+  }
   const data = await updateContacts({
     _id,
-    payload: req.body,
+    payload,
     userId: req.user._id,
   });
   if (!data) {
