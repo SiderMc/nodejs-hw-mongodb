@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview-docs"
   },
   "keywords": [],
   "author": "",
@@ -30,10 +33,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@redocly/cli": "^1.25.15",
     "eslint": "^9.13.0",
     "globals": "^15.11.0",
     "nodemon": "^3.1.7",
     "pino-pretty": "^11.3.0",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "swagger-ui-express": "^5.0.1"
   }
 }
