@@ -13,7 +13,7 @@ tags:
   - name: Contacts
     description: Operations contacts
 servers:
-  - url: #посилання на задеплоєний сайт
+  - url: https://nodejs-hw-mongodb-4-c51t.onrender.com
     description: Base Url
   - url: http://localhost:3000
     description: Test server
