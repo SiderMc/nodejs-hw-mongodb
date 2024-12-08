@@ -26,13 +26,17 @@ requestBody:
             description: "Contact's phone number"
             type: string
             example: 380961112222
+          email:
+            description: Contact email
+            type: string
+            example: johnsnow@gmail.com
           isFavourite:
             description: 'Contact is contact favourite'
             type: boolean
             enum: [false, true]
             default: false
           contactType:
-            description: 'Contact '
+            description: 'Contact type'
             type: string
             enum: ['work', 'home', 'personal']
             default: personal
