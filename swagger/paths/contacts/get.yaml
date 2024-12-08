@@ -30,16 +30,6 @@ parameters:
       default: asc
       example: 'asc'
   - in: query
-    name: name
-    schema:
-      type: string
-      example: John
-  - in: query
-    name: phoneNumber
-    schema:
-      type: string
-      example: +380961112222
-  - in: query
     name: isFavourite
     schema:
       type: boolean
